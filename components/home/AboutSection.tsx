@@ -61,9 +61,9 @@ export function AboutSection() {
             {/* Decorative background blur */}
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-accent/30 rounded-[2rem] blur-2xl"></div>
             
-            {/* Image Placeholder (Glassmorphism card for now) */}
+            {/* Profile Image */}
             <div className="absolute inset-0 glass-card rounded-[2rem] border-2 border-white/10 flex items-center justify-center overflow-hidden z-10">
-              <User size={120} className="text-white/20" />
+              <img src="/nabeel_t2.png" alt="Nabeel Ijaz" className="w-full h-full object-cover" />
             </div>
             
             {/* Floating decorative elements */}
@@ -81,8 +81,8 @@ export function AboutSection() {
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
               className="absolute -bottom-6 -left-6 glass-card p-4 rounded-xl z-20"
             >
-              <div className="text-sm font-semibold text-white">GitHub</div>
-              <div className="text-xs text-primary">Certified</div>
+              <div className="text-sm font-semibold text-white">Machine Learning</div>
+              <div className="text-xs text-primary">Specialized</div>
             </motion.div>
           </div>
         </motion.div>

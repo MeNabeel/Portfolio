@@ -55,6 +55,16 @@ export default function Home() {
             </motion.button>
           </Link>
           
+          <Link href="/download/resume">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-3 rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 text-white font-medium flex items-center gap-2 transition-all"
+            >
+              <Download size={18} /> Download Resume
+            </motion.button>
+          </Link>
+
           <Link href="/contact">
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -67,13 +77,13 @@ export default function Home() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/10 flex justify-center gap-6">
-          <Link href="https://github.com" target="_blank" className="text-gray-400 hover:text-white transition-colors">
+          <Link href="https://github.com/MeNabeel" target="_blank" className="text-gray-400 hover:text-white transition-colors">
             <Github size={24} />
           </Link>
-          <Link href="https://linkedin.com" target="_blank" className="text-gray-400 hover:text-white transition-colors">
+          <Link href="https://linkedin.com/in/nabeelijaz-developer" target="_blank" className="text-gray-400 hover:text-white transition-colors">
             <Linkedin size={24} />
           </Link>
-          <Link href="mailto:contact@example.com" className="text-gray-400 hover:text-white transition-colors">
+          <Link href="mailto:nabeelijaz559@gmail.com" className="text-gray-400 hover:text-white transition-colors">
             <Mail size={24} />
           </Link>
         </div>

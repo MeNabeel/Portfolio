@@ -11,8 +11,18 @@ const featuredProjects = [
     description: "A full-stack MERN application that allows users to create ATS-friendly resumes using professional templates with PDF export functionality.",
     stack: ["MongoDB", "Express", "React", "Node.js"],
     status: "Completed",
-    github: "https://github.com",
+    github: "https://github.com/MeNabeel/my-portfolio",
     live: "https://example.com",
+    image: "/ats1.jpeg"
+  },
+  {
+    title: "Toolkit by Nabeel",
+    description: "A comprehensive Chrome extension enhancing the UCP student portal experience with intelligent features, Grade Prediction, and automation tools.",
+    stack: ["HTML", "CSS", "JavaScript", "Chrome API"],
+    status: "Completed",
+    github: "https://github.com/nabeelijaz/toolkit",
+    live: "https://chrome.google.com/webstore/detail/toolkit",
+    image: "/t1.png"
   },
   {
     title: "PetLink",
@@ -21,6 +31,7 @@ const featuredProjects = [
     status: "In Progress",
     github: "https://github.com",
     live: "https://example.com",
+    image: null
   },
 ];
 
@@ -49,11 +60,14 @@ export function ProjectsPreview() {
             transition={{ delay: idx * 0.1 }}
             className="glass-card group overflow-hidden flex flex-col"
           >
-            <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20 relative flex items-center justify-center border-b border-white/10 group-hover:from-primary/30 group-hover:to-accent/30 transition-colors">
-              {/* Placeholder for project image */}
-              <span className="text-white/30 font-semibold text-lg tracking-widest uppercase">Project Image</span>
+            <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20 relative flex items-center justify-center border-b border-white/10 group-hover:from-primary/30 group-hover:to-accent/30 transition-colors overflow-hidden">
+              {project.image ? (
+                <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+              ) : (
+                <span className="text-white/30 font-semibold text-lg tracking-widest uppercase">Project Image</span>
+              )}
               
-              <div className="absolute top-4 right-4 bg-background/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium border border-white/10 text-white">
+              <div className="absolute top-4 right-4 bg-background/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium border border-white/10 text-white z-10">
                 {project.status}
               </div>
             </div>

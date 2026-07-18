@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum ContactStatus {
+  UNREAD
+  READ
+}
+
+model User {
+  id        String   @id // Matches Supabase auth.users id
+  email     String   @unique
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Contact {
+  id        String        @id @default(uuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    ContactStatus @default(UNREAD)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model Certificate {
+  id        String   @id @default(uuid())
+  title     String
+  issuer    String
+  date      DateTime
+  fileUrl   String
+  isPrivate Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PortfolioContent {
+  id           Int      @id @default(1)
+  heroTitle    String   @default("Hi, I'm Nabeel Ijaz")
+  heroSubtitle String   @default("A passionate Software Engineer specializing in Full Stack MERN Development, Artificial Intelligence, and creating scalable modern web applications.")
+  aboutText    String   @default("I am a final year software engineering student...")
+  education    Json     @default("[]")
+  experience   Json     @default("[]")
+  skills       Json     @default("[]")
+  projects     Json     @default("[]")
+  socialLinks  Json     @default("[]")
+  seoTitle     String   @default("Nabeel Ijaz | Software Engineer | MERN Stack Developer")
+  seoDesc      String   @default("Final Year Software Engineering student specializing in MERN Stack Development, AI integrations, modern web applications, and cloud technologies.")
+  footerText   String   @default("© 2026 Nabeel Ijaz. All rights reserved.")
+  updatedAt    DateTime @updatedAt
+}

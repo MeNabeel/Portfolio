@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import { AuthButton } from "@/components/layout/AuthButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,13 +30,16 @@ export default function RootLayout({
               <Link href="/projects" className="hover:text-accent transition-colors">Projects</Link>
               <Link href="/contact" className="hover:text-accent transition-colors">Contact</Link>
             </nav>
-            <div className="md:hidden text-white">
-              {/* Mobile Menu Icon */}
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
+            <div className="flex items-center gap-4">
+              <AuthButton />
+              <div className="md:hidden text-white">
+                {/* Mobile Menu Icon */}
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+              </div>
             </div>
           </div>
         </header>
