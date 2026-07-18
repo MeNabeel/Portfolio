@@ -21,15 +21,17 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <header className="fixed top-0 w-full z-50 glass-panel">
           <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-            <Link href="/" className="text-xl font-bold tracking-tight text-white">
-              Nabeel<span className="text-accent">Ijaz</span>
-            </Link>
-            <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-              <Link href="/" className="hover:text-accent transition-colors">Home</Link>
-              <Link href="/about" className="hover:text-accent transition-colors">About</Link>
-              <Link href="/projects" className="hover:text-accent transition-colors">Projects</Link>
-              <Link href="/contact" className="hover:text-accent transition-colors">Contact</Link>
-            </nav>
+            <div className="flex items-center gap-12">
+              <Link href="/" className="text-xl font-bold tracking-tight text-white">
+                Nabeel<span className="text-accent">Ijaz</span>
+              </Link>
+              <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+                <Link href="/" className="hover:text-accent transition-colors">Home</Link>
+                <Link href="/about" className="hover:text-accent transition-colors">About</Link>
+                <Link href="/projects" className="hover:text-accent transition-colors">Projects</Link>
+                <Link href="/contact" className="hover:text-accent transition-colors">Contact</Link>
+              </nav>
+            </div>
             <div className="flex items-center gap-4">
               <AuthButton />
               <div className="md:hidden text-white">

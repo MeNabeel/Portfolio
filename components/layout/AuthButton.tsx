@@ -11,8 +11,8 @@ export async function AuthButton() {
 
   if (!user) {
     return (
-      <Link href="/login" className="px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 rounded-lg text-sm font-medium transition-colors">
-        Login / Sign Up
+      <Link href="/login" className="px-5 py-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-full text-sm font-medium transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+        Login
       </Link>
     );
   }

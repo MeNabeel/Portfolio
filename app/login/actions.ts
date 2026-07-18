@@ -38,27 +38,38 @@ export async function signup(formData: FormData) {
   const data = {
     email: formData.get('email') as string,
     password: formData.get('password') as string,
+    firstName: formData.get('firstName') as string,
+    lastName: formData.get('lastName') as string,
   }
 
-  const { data: authData, error } = await supabase.auth.signUp(data)
+  const { data: authData, error } = await supabase.auth.signUp({
+    email: data.email,
+    password: data.password,
+    options: {
+      data: {
+        first_name: data.firstName,
+        last_name: data.lastName,
+      }
+    }
+  })
 
   if (error) {
     return { error: error.message }
   }
 
-  // Also create user in Prisma (optional depending on your exact requirements, but recommended)
+  // Create user in Prisma without awaiting so it doesn't block UI if database connection is slow
   if (authData.user) {
     try {
       const { PrismaClient } = require('@prisma/client')
       const prisma = new PrismaClient()
-      await prisma.user.upsert({
+      prisma.user.upsert({
         where: { email: data.email },
         update: {},
         create: {
           id: authData.user.id,
           email: data.email,
         }
-      })
+      }).catch((e: any) => console.error("Prisma background upsert failed:", e))
     } catch (e) {
       console.error("Failed to sync user to Prisma:", e)
     }

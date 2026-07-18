@@ -10,8 +10,12 @@ import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 
 const authSchema = z.object({
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
   email: z.string().email("Please enter a valid email address."),
   password: z.string().min(6, "Password must be at least 6 characters."),
+}).superRefine((data, ctx) => {
+  // We only validate names during signup (handled in the component logic below, but strictly z.string() is fine)
 });
 
 type AuthFormValues = z.infer<typeof authSchema>;
@@ -34,6 +38,12 @@ export default function LoginPage() {
     setError(null);
     
     const formData = new FormData();
+    if (!isLogin) {
+      if (!data.firstName) return setError("First Name is required for Sign Up");
+      if (!data.lastName) return setError("Last Name is required for Sign Up");
+      formData.append("firstName", data.firstName);
+      formData.append("lastName", data.lastName);
+    }
     formData.append("email", data.email);
     formData.append("password", data.password);
 
@@ -89,6 +99,31 @@ export default function LoginPage() {
         )}
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {!isLogin && (
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-300">First Name</label>
+                <input
+                  {...register("firstName")}
+                  type="text"
+                  placeholder="John"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
+                  disabled={isPending}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-300">Last Name</label>
+                <input
+                  {...register("lastName")}
+                  type="text"
+                  placeholder="Doe"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
+                  disabled={isPending}
+                />
+              </div>
+            </div>
+          )}
+
           <div>
             <label className="block text-sm font-medium mb-2 text-gray-300">
               Email

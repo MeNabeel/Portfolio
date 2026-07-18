@@ -31,7 +31,7 @@ export function ContactCTA() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 rounded-xl bg-white text-background font-bold text-lg inline-flex items-center gap-2 hover:bg-gray-200 transition-colors shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+              className="px-8 py-4 rounded-xl bg-white text-black font-bold text-lg inline-flex items-center gap-2 hover:bg-gray-200 transition-colors shadow-[0_0_30px_rgba(255,255,255,0.2)]"
             >
               Get In Touch <ArrowRight size={20} />
             </motion.button>
