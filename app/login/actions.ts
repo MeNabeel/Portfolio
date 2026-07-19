@@ -44,7 +44,7 @@ export async function login(formData: FormData) {
   const password = formData.get('password') as string
 
   // HARDCODED ADMIN BYPASS
-  if (email === 'admin' && password === 'admin') {
+  if (email === 'admin@gmail.com' && password === 'admin1200') {
     const cookieStore = await cookies();
     cookieStore.set('hardcoded_admin', 'true', { path: '/' });
     revalidatePath('/', 'layout');
