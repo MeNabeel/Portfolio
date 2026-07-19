@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { login, signup } from "./actions";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const authSchema = z.object({
   firstName: z.string().optional(),
@@ -20,10 +21,11 @@ const authSchema = z.object({
 
 type AuthFormValues = z.infer<typeof authSchema>;
 
-export default function LoginPage() {
+function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const {
     register,
@@ -46,6 +48,21 @@ export default function LoginPage() {
     }
     formData.append("email", data.email);
     formData.append("password", data.password);
+
+    if (!executeRecaptcha) {
+      setError("ReCAPTCHA not ready. Please try again.");
+      setIsPending(false);
+      return;
+    }
+
+    try {
+      const token = await executeRecaptcha(isLogin ? "login" : "signup");
+      formData.append("recaptchaToken", token);
+    } catch (e) {
+      setError("Failed to generate ReCAPTCHA token.");
+      setIsPending(false);
+      return;
+    }
 
     const result = isLogin ? await login(formData) : await signup(formData);
     
@@ -173,5 +190,15 @@ export default function LoginPage() {
         </form>
       </motion.div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "dummy";
+  
+  return (
+    <GoogleReCaptchaProvider reCaptchaKey={siteKey}>
+      <AuthForm />
+    </GoogleReCaptchaProvider>
   );
 }
